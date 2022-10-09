@@ -1,12 +1,34 @@
 import React, {
   createContext,
+  Dispatch,
   ReactNode,
   useCallback,
   useEffect,
   useState,
 } from "react";
+type ContextType = {
+  registerOption: (props: registerProps) => void;
+  updateOptionProps: (optionId: string, props: any) => void;
+  getOptionById: (id: string) => void;
+  deleteOptionById: (id: string) => void;
+  options: any[];
+  targetId: string | null;
+  setTargetId: Dispatch<string | null>;
+  cachedId: string | null;
+  setCachedId: Dispatch<string | null>;
+};
 
-const Context = createContext({});
+export const Context = createContext<any>({
+  registerOption: null,
+  updateOptionProps: null,
+  getOptionById: null,
+  deleteOptionById: null,
+  options: null,
+  targetId: null,
+  setTargetId: null,
+  cachedId: null,
+  setCachedId: null,
+});
 
 interface DropdownProps {
   children: ReactNode;
@@ -22,8 +44,8 @@ interface registerProps {
 
 export function DropdownProvider({ children }: DropdownProps) {
   const [options, setOptions] = useState<any[]>([]);
-  const [targetId, setTargetId] = useState<any>(null);
-  const [cachedId, setCachedId] = useState<any>(null);
+  const [targetId, setTargetId] = useState<string | null>(null);
+  const [cachedId, setCachedId] = useState<string | null>(null);
 
   useEffect(() => {
     if (targetId != null) {

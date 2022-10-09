@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.nav`
   background: linear-gradient(150deg, #53f 15%, #05d5ff);
 
   > ul {
@@ -26,4 +26,27 @@ export const DropdownStyles = styled.div`
       opacity: 0.55;
     }
   }
+
+  .dropdown-root {
+    z-index: 10;
+    position: absolute;
+  }
+
+  .dropdown-arrow {
+  }
+
+  .dropdown-container {
+    position: absolute;
+  }
+
+  .dropdown-section {
+    position: absolute;
+  }
+
+  /* .dropdown-background {
+    position: absolute;
+    bottom: 0;
+    background: #f6f9fc;
+    width: 100%;
+  } */
 `;

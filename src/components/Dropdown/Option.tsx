@@ -66,7 +66,7 @@ export function DropdownOption(props: DropdownOptionProps) {
       registerOption({
         id,
         optionDimensions,
-        optionCenterX: optionDimensions.x + optionDimensions.Width / 2,
+        optionCenterX: optionDimensions.x + optionDimensions.width / 2,
         WrappedContent,
         backgroundHeight,
       });
@@ -75,7 +75,7 @@ export function DropdownOption(props: DropdownOptionProps) {
     } else if (registered && optionDimensions) {
       updateOptionProps(id, {
         optionDimensions,
-        optionCenterX: optionDimensions.x + optionDimensions.Width / 2,
+        optionCenterX: optionDimensions.x + optionDimensions.width / 2,
       });
     }
   }, [

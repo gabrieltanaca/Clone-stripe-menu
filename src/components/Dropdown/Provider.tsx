@@ -1,40 +1,60 @@
-import React, {
+import {
   createContext,
-  Dispatch,
   ReactNode,
   useCallback,
   useEffect,
   useState,
 } from "react";
 
-export const Context = createContext<any | null>(null);
-
-interface DropdownProps {
-  children: ReactNode;
+interface ContextType {
+  targetId: number | null;
+  cachedId: number | null;
+  options: Option[];
+  deleteOptionById: Function;
+  getOptionById: Function;
+  registerOption: Function;
+  setCachedId: Function;
+  setTargetId: Function;
+  updateOptionProps: Function;
 }
 
-interface registerProps {
-  id: any;
-  optionDimensions: any;
-  optionCenterX: any;
-  WrappedContent: any;
-  backgroundHeight: any;
+export const Context = createContext<ContextType>({
+  targetId: null,
+  cachedId: null,
+  options: [],
+  deleteOptionById: () => {},
+  getOptionById: () => {},
+  registerOption: () => {},
+  setCachedId: () => {},
+  setTargetId: () => {},
+  updateOptionProps: () => {},
+});
+
+export interface Option {
+  id: number;
+  optionCenterX: number;
+  optionDimensions: DOMRect;
+  WrappedContent: Function;
+  backgroundHeight: number;
+  contentDimensions?: DOMRect;
 }
 
-export function DropdownProvider({ children }: DropdownProps) {
-  const [options, setOptions] = useState<any[]>([]);
-  const [targetId, setTargetId] = useState<string | null>(null);
-  const [cachedId, setCachedId] = useState<string | null>(null);
+export function DropdownProvider({ children }: { children: ReactNode }) {
+  const [options, setOptions] = useState<Option[]>([]);
+  const [targetId, setTargetId] = useState<number | null>(null);
+  const [cachedId, setCachedId] = useState<number | null>(null);
 
   const registerOption = useCallback(
-    ({
-      id,
-      optionDimensions,
-      optionCenterX,
-      WrappedContent,
-      backgroundHeight,
-    }: registerProps) => {
-      setOptions((items: any) => [
+    (option: Option) => {
+      const {
+        id,
+        optionDimensions,
+        optionCenterX,
+        WrappedContent,
+        backgroundHeight,
+      } = option;
+
+      setOptions((items: Option[]) => [
         ...items,
         {
           id,
@@ -49,9 +69,9 @@ export function DropdownProvider({ children }: DropdownProps) {
   );
 
   const updateOptionProps = useCallback(
-    (optionId: string, props: any) => {
-      setOptions((items: any) =>
-        items.map((item: any) => {
+    (optionId: number, props: DOMRect) => {
+      setOptions((items: Option[]) =>
+        items.map((item: Option) => {
           if (item.id === optionId) {
             item = { ...item, ...props };
           }
@@ -64,13 +84,15 @@ export function DropdownProvider({ children }: DropdownProps) {
   );
 
   const getOptionById = useCallback(
-    (id: any) => options.find((item: any) => item.id === id),
+    (id: number) => options.find((item: Option) => item.id === id),
     [options]
   );
 
   const deleteOptionById = useCallback(
-    (id: any) => {
-      setOptions((items: any) => items.filter((item: any) => item.id !== id));
+    (id: number) => {
+      setOptions((items: Option[]) =>
+        items.filter((item: Option) => item.id !== id)
+      );
     },
     [setOptions]
   );

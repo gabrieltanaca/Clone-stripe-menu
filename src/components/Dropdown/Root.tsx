@@ -1,7 +1,7 @@
-import React, { useContext, useMemo, useState, useEffect } from "react";
+import { useContext, useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-import { Context } from "./Provider";
+import { Context, Option } from "./Provider";
 import { DropdownSection } from "./Section";
 
 const refDuration = 0.22;
@@ -92,7 +92,7 @@ export function DropdownRoot() {
               x: isFirstInteraction ? { duration: 0 } : undefined,
             }}
           >
-            {options.map((item: any) => (
+            {options.map((item: Option) => (
               <DropdownSection key={item.id} option={item} />
             ))}
           </motion.div>
@@ -104,7 +104,11 @@ export function DropdownRoot() {
   );
 }
 
-function DropdownArrow({ isFirstInteraction }: any) {
+function DropdownArrow({
+  isFirstInteraction,
+}: {
+  isFirstInteraction: Boolean;
+}) {
   const { cachedId, getOptionById } = useContext(Context);
 
   const cachedOption = useMemo(

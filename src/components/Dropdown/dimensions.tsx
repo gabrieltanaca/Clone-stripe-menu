@@ -1,12 +1,12 @@
 import { useCallback, useLayoutEffect, useState } from "react";
 
-const getDimensions = (element: any) => element.getBoundingClientRect();
+const getDimensions = (element: HTMLElement) => element.getBoundingClientRect();
 
 export function useDimensions(responsive: boolean = true) {
   const [dimensions, setDimensions] = useState<any>(null);
-  const [element, setElement] = useState<any>(null);
+  const [element, setElement] = useState<HTMLElement | null>(null);
 
-  const hook = useCallback((e: any) => setElement(e), []);
+  const hook = useCallback((e: HTMLElement) => setElement(e), []);
 
   useLayoutEffect(() => {
     if (element) {

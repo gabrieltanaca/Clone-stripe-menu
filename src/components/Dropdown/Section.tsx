@@ -1,13 +1,9 @@
 import { useContext } from "react";
 import { motion } from "framer-motion";
 
-import { Context } from "./Provider";
+import { Context, Option } from "./Provider";
 
-interface SectionProps {
-  option: any;
-}
-
-export function DropdownSection({ option }: SectionProps) {
+export function DropdownSection({ option }: { option: Option }) {
   const { cachedId } = useContext(Context);
 
   const { id, optionCenterX, contentDimensions } = option;

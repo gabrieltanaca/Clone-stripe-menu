@@ -4,15 +4,15 @@ import { motion } from "framer-motion";
 import { useDimensions } from "./dimensions";
 import { Context } from "./Provider";
 
-interface DropdownOptionProps {
+export interface DropdownOptionType {
   name: string;
   content: Function;
-  backgroundHeight: any;
+  backgroundHeight: number;
 }
 
 let lastOptionId = 0;
 
-export function DropdownOption(props: DropdownOptionProps) {
+export function DropdownOption(props: DropdownOptionType) {
   const { name, content: Content, backgroundHeight } = props;
 
   const idRef = useRef(++lastOptionId);

@@ -1,42 +1,16 @@
-import React from "react";
-
 import { Products, Developers, Company } from "../Content";
-import { DropdownProvider, DropdownOption, DropdownRoot } from "../Dropdown";
-import { Container, DropdownStyles } from "./styles";
-
+import { Container } from "./styles";
+import DropdownList from "../Dropdown/DropdownList";
+const itemsList = [
+  { name: "Produtos", content: Products, backgroundHeight: 286 },
+  { name: "Desenvolvedores", content: Developers, backgroundHeight: 167 },
+  { name: "Empresa", content: Company, backgroundHeight: 215 },
+];
 function Navbar() {
   return (
-    <DropdownProvider>
-      <DropdownStyles>
-        <Container>
-          <ul>
-            <li>
-              <DropdownOption
-                name="Produtos"
-                content={Products}
-                backgroundHeight={286}
-              />
-            </li>
-            <li>
-              <DropdownOption
-                name="Desenvolvedores"
-                content={Developers}
-                backgroundHeight={167}
-              />
-            </li>
-            <li>
-              <DropdownOption
-                name="Empresa"
-                content={Company}
-                backgroundHeight={215}
-              />
-            </li>
-          </ul>
-        </Container>
-
-        <DropdownRoot />
-      </DropdownStyles>
-    </DropdownProvider>
+    <Container>
+      <DropdownList itemsList={itemsList} />
+    </Container>
   );
 }
 
